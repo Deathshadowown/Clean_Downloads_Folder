@@ -24,6 +24,7 @@ public class Main{
             File newPrograms = new File("Programs");
             File newDocuments = new File("Documents");
             File newMusic = new File("Music");
+            File newTorrents = new File("Torrents");
             
             Boolean fileExist = newVideo.exists();
             if (!fileExist)
@@ -43,6 +44,9 @@ public class Main{
             fileExist = newMusic.exists();
             if (!fileExist)
             newMusic.mkdir();
+            fileExist = newTorrents.exists();
+            if (!fileExist)
+            newTorrents.mkdir();
 
             File absolutePath = new File("Video/..");
             int absoulutePathcount = absolutePath.list().length;
@@ -64,11 +68,41 @@ public class Main{
                     char firstCharacter2 = '\0';
                     char secondCharacter = '\0';
                     char thirdCharacter = '\0';
+                    int lookingForTorrent = 0;
                     if (firstCharacter == '.'){
                         count2++;
                         fileType = 0;
+                        lookingForTorrent = 0;
                         while (count2 <= count){
                             firstCharacter = fileName.charAt(count2);
+                            if (firstCharacter == '.'){
+                                firstCharacter2 = '\0';
+                                secondCharacter = '\0';
+                                thirdCharacter = '\0';
+                                fileType = 0;
+                            }
+                            if (lookingForTorrent == 1){
+                                if (firstCharacter == 'r')
+                                lookingForTorrent++;
+                                else
+                                lookingForTorrent = 0;
+                            }else if (lookingForTorrent == 2){
+                                if (firstCharacter == 'e')
+                                lookingForTorrent++;
+                                else
+                                lookingForTorrent = 0;
+                            }else if (lookingForTorrent == 3){
+                                if (firstCharacter == 'n')
+                                lookingForTorrent++;
+                                else
+                                lookingForTorrent = 0;
+                            }
+                            else if (lookingForTorrent == 4){
+                                if (firstCharacter == 't')
+                                lookingForTorrent++;
+                                else
+                                lookingForTorrent = 0;
+                            }
                             if (fileType == 0 && ((firstCharacter == 'j') || (firstCharacter == 'p') || (firstCharacter == 'g') || 
                             (firstCharacter == 'e') || (firstCharacter == 'r') || (firstCharacter == 'z') || (firstCharacter == 'd') || 
                             (firstCharacter == 't') || (firstCharacter == 'p') || (firstCharacter == 'm') || (firstCharacter == 'a') || 
@@ -83,19 +117,27 @@ public class Main{
                             }else if (fileType == 2 && count2 == count && ((firstCharacter == 'g') || (firstCharacter == 'f') || (firstCharacter == 'e') || (firstCharacter == 'r') || 
                             (firstCharacter == 'p') || (firstCharacter == 'c') || (firstCharacter == 't') || (firstCharacter == '3') || (firstCharacter == '4') || (firstCharacter == 'i') || 
                             (firstCharacter == 'v'))){
-                                fileType++;
                                 thirdCharacter = firstCharacter;
+                                fileType++;
+                                if (firstCharacter2 == 't' && secondCharacter == 'o' && thirdCharacter == 'r')
+                                lookingForTorrent++;
+                            }else if (fileType == 2 && firstCharacter == 'r'){
+                                thirdCharacter = firstCharacter;
+                                fileType++;
+                                if (firstCharacter2 == 't' && secondCharacter == 'o' && thirdCharacter == 'r')
+                                lookingForTorrent++; 
                             }
                             count2++;
                         }
                     }
                     count2++;
+                    if (lookingForTorrent == 5)
+                    moveFileToTorrents(contentInsideDownloads, absoulutePathcount);
                     if (fileType == 3){
                         // System.out.println(firstCharacter2);
                         // System.out.println(secondCharacter);
                         // System.out.println(thirdCharacter);
                         if (firstCharacter2 == 'j' && secondCharacter == 'p' && thirdCharacter == 'g'){
-                            // System.out.println("Found image");
                             moveFileToImages(contentInsideDownloads, absoulutePathcount);
                         }else if (firstCharacter2 == 'p' && secondCharacter == 'n' && thirdCharacter == 'g'){
                             moveFileToImages(contentInsideDownloads, absoulutePathcount);
@@ -229,6 +271,23 @@ private static void moveFileToVideo(String[] contentInsideDownloads, int absoulu
     // renaming the file and moving it to a new location 
     if(file.renameTo 
        (new File("Video/"+contentInsideDownloads[absoulutePathcount]))) 
+    { 
+        // if file copied successfully then delete the original file 
+        file.delete(); 
+        System.out.println("File moved successfully"); 
+    } 
+    else
+    { 
+        System.out.println("Failed to move the file"); 
+    }
+}
+
+private static void moveFileToTorrents(String[] contentInsideDownloads, int absoulutePathcount){
+    File file = new File(contentInsideDownloads[absoulutePathcount]); 
+  
+    // renaming the file and moving it to a new location 
+    if(file.renameTo 
+       (new File("Torrents/"+contentInsideDownloads[absoulutePathcount]))) 
     { 
         // if file copied successfully then delete the original file 
         file.delete(); 
