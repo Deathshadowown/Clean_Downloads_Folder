@@ -25,8 +25,6 @@ public class Main{
             File newPrograms = new File("Programs");
             File newDocuments = new File("Documents");
             File newMusic = new File("Music");
-            // /mnt/c/Users/Deathshadow/projects/Java_Projects/git_repos/clean_up_Downloads
-            // File new
             
             Boolean fileExist = newVideo.exists();
             if (!fileExist)
@@ -50,32 +48,12 @@ public class Main{
             File absolutePath = new File("Video/..");
             int absoulutePathcount = absolutePath.list().length;
             String contentInsideDownloads[] = absolutePath.list();
-            System.out.println(absoulutePathcount);
+            // System.out.println(absoulutePathcount);
             absoulutePathcount--;
-            System.out.println(contentInsideDownloads);
-
-
-
-
-
-            // File file = new File("test.txt"); 
-          
-            // // renaming the file and moving it to a new location 
-            // if(file.renameTo 
-            //    (new File("Video/test.txt"))) 
-            // { 
-            //     // if file copied successfully then delete the original file 
-            //     file.delete(); 
-            //     System.out.println("File moved successfully"); 
-            // } 
-            // else
-            // { 
-            //     System.out.println("Failed to move the file"); 
-            // }
-
+            // System.out.println(contentInsideDownloads);
             while(absoulutePathcount >= 0){
-                System.out.println("Inside here: "+contentInsideDownloads[absoulutePathcount]);
-                System.out.println(contentInsideDownloads[absoulutePathcount]);
+                // System.out.println("Inside here: "+contentInsideDownloads[absoulutePathcount]);
+                // System.out.println(contentInsideDownloads[absoulutePathcount]);
                 String fileName = contentInsideDownloads[absoulutePathcount];
                 String extendtionOfFile = null;
                 int count = fileName.length();
@@ -83,7 +61,6 @@ public class Main{
                 int count2 = 0;
                 int fileType = 0;
                 while (count2 <= count){
-                    // System.out.println(fileName[count].Tochar);
                     char firstCharacter = fileName.charAt(count2);
                     char firstCharacter2 = '\0';
                     char secondCharacter = '\0';
@@ -93,28 +70,33 @@ public class Main{
                         fileType = 0;
                         while (count2 <= count){
                             firstCharacter = fileName.charAt(count2);
-                            if (fileType == 0 && ((firstCharacter == 'j') || (firstCharacter == 'p') || (firstCharacter == 'g') || (firstCharacter == 'e') || (firstCharacter == 'r') || (firstCharacter == 'z'))){
+                            if (fileType == 0 && ((firstCharacter == 'j') || (firstCharacter == 'p') || (firstCharacter == 'g') || 
+                            (firstCharacter == 'e') || (firstCharacter == 'r') || (firstCharacter == 'z') || (firstCharacter == 'd') || 
+                            (firstCharacter == 't') || (firstCharacter == 'p') || (firstCharacter == 'm') || (firstCharacter == 'a') || 
+                            (firstCharacter == 'f') || (firstCharacter == 'w'))){
                                 fileType++;
                                 firstCharacter2 = firstCharacter;
-                            }else if (fileType == 1 && ((firstCharacter == 'p') || (firstCharacter == 'n') || (firstCharacter == 'i') || (firstCharacter == 'x') || (firstCharacter == 'a') || (firstCharacter == 'e'))){
+                            }else if (fileType == 1 && ((firstCharacter == 'p') || (firstCharacter == 'n') || (firstCharacter == 'i') || (firstCharacter == 'x') || 
+                            (firstCharacter == 'a') || (firstCharacter == 'e') || (firstCharacter == 'o') || (firstCharacter == 'd') || (firstCharacter == 'v') || 
+                            (firstCharacter == 'l') || (firstCharacter == 'm') || (firstCharacter == 'k') || (firstCharacter == 'w'))){
                                 fileType++;
                                 secondCharacter = firstCharacter;
-                            }else if (fileType == 2 && count2 == count && (firstCharacter == 'g' || firstCharacter == 'f' || firstCharacter == 'e' || firstCharacter == 'r' || firstCharacter == 'p')){
+                            }else if (fileType == 2 && count2 == count && ((firstCharacter == 'g') || (firstCharacter == 'f') || (firstCharacter == 'e') || (firstCharacter == 'r') || 
+                            (firstCharacter == 'p') || (firstCharacter == 'c') || (firstCharacter == 't') || (firstCharacter == '3') || (firstCharacter == '4') || (firstCharacter == 'i') || 
+                            (firstCharacter == 'v'))){
                                 fileType++;
                                 thirdCharacter = firstCharacter;
                             }
                             count2++;
                         }
                     }
-                    // System.out.println(fileType);
                     count2++;
                     if (fileType == 3){
-                        // Acounts for Images: jpg, png, gif, programs: exe, Compressed: rar, zip
-                        System.out.println(firstCharacter2);
-                        System.out.println(secondCharacter);
-                        System.out.println(thirdCharacter);
+                        // System.out.println(firstCharacter2);
+                        // System.out.println(secondCharacter);
+                        // System.out.println(thirdCharacter);
                         if (firstCharacter2 == 'j' && secondCharacter == 'p' && thirdCharacter == 'g'){
-                            System.out.println("Found image");
+                            // System.out.println("Found image");
                             moveFileToImages(contentInsideDownloads, absoulutePathcount);
                         }else if (firstCharacter2 == 'p' && secondCharacter == 'n' && thirdCharacter == 'g'){
                             moveFileToImages(contentInsideDownloads, absoulutePathcount);
@@ -126,6 +108,26 @@ public class Main{
                             moveFileToCompressed(contentInsideDownloads, absoulutePathcount);
                         }else if (firstCharacter2 == 'z' && secondCharacter == 'i' && thirdCharacter == 'p'){
                             moveFileToCompressed(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'd' && secondCharacter == 'o' && thirdCharacter == 'c'){
+                            moveFileToDocuments(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 't' && secondCharacter == 'x' && thirdCharacter == 't'){
+                            moveFileToDocuments(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'p' && secondCharacter == 'd' && thirdCharacter == 'f'){
+                            moveFileToDocuments(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'm' && secondCharacter == 'p' && thirdCharacter == '3'){
+                            moveFileToMusic(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'm' && secondCharacter == 'p' && thirdCharacter == '4'){
+                            moveFileToVideo(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'm' && secondCharacter == 'k' && thirdCharacter == 'v'){
+                            moveFileToVideo(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'm' && secondCharacter == 'o' && thirdCharacter == 'v'){
+                            moveFileToVideo(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'm' && secondCharacter == 'w' && thirdCharacter == 'v'){
+                            moveFileToVideo(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'f' && secondCharacter == 'l' && thirdCharacter == 'v'){
+                            moveFileToVideo(contentInsideDownloads, absoulutePathcount);
+                        }else if (firstCharacter2 == 'a' && secondCharacter == 'v' && thirdCharacter == 'i'){
+                            moveFileToVideo(contentInsideDownloads, absoulutePathcount);
                         }
                     }
                 }
@@ -170,12 +172,64 @@ public class Main{
             System.out.println("Failed to move the file"); 
         }
 }
+
 private static void moveFileToCompressed(String[] contentInsideDownloads, int absoulutePathcount){
     File file = new File(contentInsideDownloads[absoulutePathcount]); 
   
     // renaming the file and moving it to a new location 
     if(file.renameTo 
        (new File("Compressed/"+contentInsideDownloads[absoulutePathcount]))) 
+    { 
+        // if file copied successfully then delete the original file 
+        file.delete(); 
+        System.out.println("File moved successfully"); 
+    } 
+    else
+    { 
+        System.out.println("Failed to move the file"); 
+    }
+}
+
+private static void moveFileToDocuments(String[] contentInsideDownloads, int absoulutePathcount){
+    File file = new File(contentInsideDownloads[absoulutePathcount]); 
+  
+    // renaming the file and moving it to a new location 
+    if(file.renameTo 
+       (new File("Documents/"+contentInsideDownloads[absoulutePathcount]))) 
+    { 
+        // if file copied successfully then delete the original file 
+        file.delete(); 
+        System.out.println("File moved successfully"); 
+    } 
+    else
+    { 
+        System.out.println("Failed to move the file"); 
+    }
+}
+
+private static void moveFileToMusic(String[] contentInsideDownloads, int absoulutePathcount){
+    File file = new File(contentInsideDownloads[absoulutePathcount]); 
+  
+    // renaming the file and moving it to a new location 
+    if(file.renameTo 
+       (new File("Music/"+contentInsideDownloads[absoulutePathcount]))) 
+    { 
+        // if file copied successfully then delete the original file 
+        file.delete(); 
+        System.out.println("File moved successfully"); 
+    } 
+    else
+    { 
+        System.out.println("Failed to move the file"); 
+    }
+}
+
+private static void moveFileToVideo(String[] contentInsideDownloads, int absoulutePathcount){
+    File file = new File(contentInsideDownloads[absoulutePathcount]); 
+  
+    // renaming the file and moving it to a new location 
+    if(file.renameTo 
+       (new File("Video/"+contentInsideDownloads[absoulutePathcount]))) 
     { 
         // if file copied successfully then delete the original file 
         file.delete(); 
